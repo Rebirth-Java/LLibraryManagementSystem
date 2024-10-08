@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.libraryboot.Mapper.AdminMapper">
+
+    <insert id="save">
+        insert  into  admin(username,password,phone,email) values (#{username},#{password},#{phone},#{email})
+    </insert>
+    <update id="UpdateById">
+        update  admin set username=#{username},password=#{password},email=#{email},updatetime=#{updatetime},phone=#{phone},status=#{status} where id=#{id}
+    </update>
+
+    <delete id="DeleteById">
+        delete  from admin where  id=#{id}
+    </delete>
+    <select id="list1" resultType="com.example.libraryboot.entity.Admin">
+        select * from admin where id=#{id}
+    </select>
+    <select id="list" resultType="com.example.libraryboot.entity.Admin">
+        select * from admin
+    </select>
+<!--    模糊查詢-->
+    <select id="listByCondition" resultType="com.example.libraryboot.entity.Admin">
+        select *from admin
+              <where>
+                  <if test="username!=null and email!='' ">
+                      username like concat('%',#{username},'%')
+                  </if>
+                  <if test="phone!=null and phone!='' ">
+                    and  phone like concat('%',#{phone},'%')
+                  </if>
+                  <if test="email!=null and email!='' ">
+                      and  email like concat('%',#{email},'%')
+                  </if>
+              </where>
+order by id 
+    </select>
+    <select id="getById" resultType="com.example.libraryboot.entity.Admin">
+        select  *from  admin where  id=#{id}
+    </select>
+    <select id="getUsernameAndPassword" resultType="com.example.libraryboot.entity.Admin">
+        SELECT * FROM admin WHERE username = #{username} AND password = #{password}
+    </select>
+    <select id="Isexist" resultType="com.example.libraryboot.entity.Admin">
+        SELECT * FROM admin WHERE username = #{username} AND phone = #{phone}
+    </select>
+    <select id="getByUsername" resultType="com.example.libraryboot.entity.Admin">
+        SELECT * FROM admin WHERE username = #{username}
+    </select>
+</mapper>

@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/libraryboot?serverTimezone=GMT%2b8 #北京时间
+    username: root
+    password: 123456
+
+
+server:
+  port: 8090
+mybatis:
+  mapper-locations: classpath:Mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true #数据库字段下划线转驼峰开启
